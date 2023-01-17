@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "./App.css";
-import Home from "./Components/Home";
+import Home from "./Components/Home/Home";
 import Hotel from "./Components/Hotels/Hotel";
 import ListHotel from "./Components/Hotels/ListHotel";
-import NavBar from "./Components/NavBar";
+import NavBar from "./Components/Nav/NavBar";
 
 function App() {
   return (
