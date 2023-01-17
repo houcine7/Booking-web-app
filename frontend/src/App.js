@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "./App.css";
+import Footer from "./Components/Footer/Footer";
 import Home from "./Components/Home/Home";
 import Hotel from "./Components/Hotels/Hotel";
 import ListHotel from "./Components/Hotels/ListHotel";
@@ -16,10 +17,19 @@ function App() {
             <>
               <NavBar />
               <Home />
+              <Footer />
             </>
           }
         />
-        <Route path="/Hotels" element={<ListHotel />} />
+        <Route
+          path="/Hotels"
+          element={
+            <>
+              <NavBar />
+              <ListHotel />
+            </>
+          }
+        />
         <Route path="/Hotels/:id" element={<Hotel />} />
       </Routes>
     </BrowserRouter>

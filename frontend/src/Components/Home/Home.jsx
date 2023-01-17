@@ -1,11 +1,13 @@
 import React from "react";
+import EmailContainer from "../Email/EmailContainer";
+import BlogContainer from "./BlogContainer";
 import Featured from "./Featured";
 import HomesGuests from "./HomesGuests";
 import PropertyList from "./PropertyList";
 
 const Home = () => {
   return (
-    <section className="mt-10 px-3">
+    <section className="mt-10">
       <div className="flex gap-2 justify-center">
         <Featured image={"./images/paris.png"} city={"paris"} numberP={1555} />
         <Featured
@@ -17,6 +19,8 @@ const Home = () => {
       </div>
       <PropertyList />
       <HomesGuests />
+      <BlogContainer />
+      <EmailContainer />
     </section>
   );
 };
