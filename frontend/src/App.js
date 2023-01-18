@@ -15,7 +15,7 @@ function App() {
           path="/"
           element={
             <>
-              <NavBar />
+              <NavBar isListHotels={false} />
               <Home />
               <Footer />
             </>
@@ -25,7 +25,7 @@ function App() {
           path="/Hotels"
           element={
             <>
-              <NavBar />
+              <NavBar isListHotels={true} />
               <ListHotel />
             </>
           }

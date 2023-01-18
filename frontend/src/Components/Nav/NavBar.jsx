@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./Header";
 import SearchBlock from "./SearchBlock";
 
-const NavBar = () => {
+const NavBar = ({ isListHotels }) => {
   return (
     <>
       <div className="bg-blue-500 pb-12">
@@ -18,8 +18,8 @@ const NavBar = () => {
               </button>
             </div>
           </div>
-          <Header />
-          <SearchBlock />
+          <Header isListHotels={isListHotels} />
+          {!isListHotels && <SearchBlock />}
         </div>
       </div>
     </>
