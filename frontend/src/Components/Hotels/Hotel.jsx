@@ -1,54 +1,185 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  FaMapMarkerAlt,
+  FaArrowAltCircleLeft,
+  FaArrowAltCircleRight,
+} from "react-icons/fa";
 
+import { BsXCircleFill } from "react-icons/bs";
+
+const pics = [
+  {
+    imgURL: "../../../images/hotel1.png",
+  },
+  {
+    imgURL: "../../../images/hotel2.png",
+  },
+  {
+    imgURL: "../../../images/hotel3.png",
+  },
+  {
+    imgURL: "../../../images/hotel3.png",
+  },
+  {
+    imgURL: "../../../images/hotels.png",
+  },
+];
+
+const initialState = {
+  imgeIndex: 0,
+  open: false,
+};
 const Hotel = () => {
+  const [silderImage, setSliderImage] = useState(initialState);
+
+  const handelClick = (index) => {
+    setSliderImage({
+      imgeIndex: index,
+      open: true,
+    });
+  };
+
+  const handelRightClick = () => {
+    setSliderImage((prevState) => {
+      if (prevState.imgeIndex === pics.length - 1) {
+        return {
+          ...prevState,
+          imgeIndex: 0,
+        };
+      }
+      return {
+        ...prevState,
+        imgeIndex: prevState.imgeIndex + 1,
+      };
+    });
+  };
+  const handelLeftClick = () => {
+    setSliderImage((prevState) => {
+      if (prevState.imgeIndex === 0) {
+        return {
+          ...prevState,
+          imgeIndex: pics.length - 1,
+        };
+      }
+      return {
+        ...prevState,
+        imgeIndex: prevState.imgeIndex - 1,
+      };
+    });
+  };
+
   return (
-    <div className="mycard p-2 rounded-lg w-full border-gray-400 border flex gap-6">
-      <div className="w-56 overflow-hidden">
-        <img
-          src="./images/hotel1.png"
-          alt="hotel"
-          className="h-full object-cover flex-1"
-        />
-      </div>
-      <div className="w-full">
-        <div className="flex justify-between items-center">
-          <h1 className="font-bold text-xl text-blue-800">
-            Tower street appartement
+    <div className="mt-5 max-w-5xl mx-auto relative">
+      <div className="flex justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-wider">
+            Tower street appartements
           </h1>
-          <div className="flex gap-6">
-            <p className="font-semibold text-lg">Excelent</p>
-            <p
-              className="bg-blue-600 rounded-t rounded-br text-white"
-              style={{ padding: "2px 3px" }}
-            >
-              90.2
-            </p>
+          <p className="font-normal text-gray-400 flex gap-2 items-center mt-2">
+            <span>
+              <FaMapMarkerAlt />
+            </span>
+            5 new york , Old town ndld usa
+          </p>
+          <p className="text-blue-700 mt-2 font-semibold">
+            Excellent location : 500 from center
+          </p>
+          <p className="text-green-600 mt-2 font-semibold">
+            Book a stay over MAD 500 at this property and get a free airport
+            taxi
+          </p>
+        </div>
+        <div>
+          <button className="px-3 bg-blue-700 h-10 text-white  rounded shadow transition duration-300 ease-in-out hover:bg-blue-800">
+            Reserver or Book Now!
+          </button>
+        </div>
+      </div>
+
+      <div className=" grid grid-cols-3 gap-2 my-3">
+        {pics.map((item, index) => {
+          return (
+            <img
+              src={item.imgURL}
+              alt="pic"
+              className="h-64 object-cover"
+              key={index}
+              onClick={() => handelClick(index)}
+            />
+          );
+        })}
+      </div>
+      {silderImage.open && (
+        <div
+          className="fixed top-0 left-0  bottom-0"
+          style={{ background: "rgb(0 0 0 / 56%)" }}
+        >
+          <BsXCircleFill
+            size={35}
+            fill={"white"}
+            cursor={"pointer"}
+            style={{ position: "absolute", right: "3rem", top: "1rem" }}
+            onClick={() =>
+              setSliderImage({
+                imgeIndex: 0,
+                open: false,
+              })
+            }
+          />
+          <div className="flex justify-center items-center gap-4">
+            <FaArrowAltCircleLeft
+              size={30}
+              fill={"white"}
+              cursor={"pointer"}
+              onClick={handelLeftClick}
+            />
+            <img
+              src={pics[silderImage.imgeIndex].imgURL}
+              alt="hotle describe"
+              className="w-4/5 opacity-100 my-4"
+            />
+            <FaArrowAltCircleRight
+              size={30}
+              fill={"white"}
+              cursor={"pointer"}
+              onClick={() => handelRightClick()}
+            />
           </div>
         </div>
-        <p className="text-gray-500 font-thin mt-1">700 m from center </p>
-        <p className="bg-green-600 rounded px-2 py-1 w-fit mt-1 text-xs font-bold text-white items-center">
-          free airport taxi
-        </p>
-        <p className="mt-1 font-bold text-sm">
-          Studio Apartement with Air coditioning
-        </p>
-        <div className="flex  justify-between mt-1 items-center">
-          <p className="text-gray-500 text-sm">
-            Enire studio * 1 Bathroom * 21m² 1 full bed
+      )}
+      <div className="mt-8 grid grid-cols-3 gap-10 text-gray-800 mb-8">
+        <div className="col-span-2">
+          <h1 className="text-2xl font-bold mb-4">
+            Stay in the heart of krakow
+          </h1>
+          <p className="text-lg text-gray-500">
+            {"  "}Lorem, ipsum dolor sit amet consectetur adipisicing elit. At,
+            pariatur tempora, voluptatibus quasi delectus culpa beatae animi
+            ipsum quibusdam quis eligendi eum praesentium? Illo deleniti commodi
+            culpa sunt suscipit ut alias fugit ipsum! praesentium? Illo deleniti
+            commodi culpa sunt suscipit ut alias fugit ipsum!praesentium? Illo
+            deleniti commodi culpa sunt suscipit ut alias fugit ipsum!
           </p>
-          <p className="text-lg font-bold">MAD 500</p>
         </div>
-        <div className="flex  justify-between mt-1 items-center">
-          <p className="text-green-600 font-bold">Free cancellation</p>
-          <p className="text-gray-500 text-sm">Includs taxes and fees</p>
-        </div>
-        <div className="flex  justify-between mt-1 items-center">
-          <p className="text-gray-500 text-xs">
-            You can cencel later, so book now with this great price
+        <div className="col-span-1 px-2 py-4 bg-blue-200">
+          <h1 className="text-xl font-bold mb-2">
+            {" "}
+            Perfect for a 9-night stay
+          </h1>
+          <p className="text text-gray-500">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse fuga
+            exercitationem
           </p>
-          <button className="bg-blue-600 rounded px-2 py-2 font-bold text-white shadow transition duration-200 ease-in-out hover:bg-blue-700">
-            see availability
-          </button>
+
+          <h1 className="mt-4 font-bold text-xl">
+            MAD 5000{" "}
+            <span className="font-normal text-gray-500">(9 night)</span>
+          </h1>
+          <div className="px-2">
+            <button className="w-full h-11 bg-blue-800 mt-6 text-white rounded-md font-semibold">
+              Reserve or Book Now
+            </button>
+          </div>
         </div>
       </div>
     </div>

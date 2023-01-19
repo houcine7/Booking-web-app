@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "./App.css";
+import EmailContainer from "./Components/Email/EmailContainer";
 import Footer from "./Components/Footer/Footer";
 import Home from "./Components/Home/Home";
 import Hotel from "./Components/Hotels/Hotel";
@@ -30,7 +31,17 @@ function App() {
             </>
           }
         />
-        <Route path="/Hotels/:id" element={<Hotel />} />
+        <Route
+          path="/Hotels/:id"
+          element={
+            <>
+              <NavBar isListHotels={true} />
+              <Hotel />
+              <EmailContainer />
+              <Footer />
+            </>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
