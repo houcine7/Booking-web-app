@@ -99,13 +99,15 @@ const Hotel = () => {
       <div className=" grid grid-cols-3 gap-2 my-3">
         {pics.map((item, index) => {
           return (
-            <img
-              src={item.imgURL}
-              alt="pic"
-              className="h-64 object-cover"
-              key={index}
-              onClick={() => handelClick(index)}
-            />
+            <div className="relative">
+              <img
+                src={item.imgURL}
+                alt="pic"
+                className="h-64 object-cover hover:z-40 cursor-pointer"
+                key={index}
+                onClick={() => handelClick(index)}
+              />
+            </div>
           );
         })}
       </div>
