@@ -1,5 +1,6 @@
 const User = require("../models/user.js");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const { authRouter } = require("../Routes/authentication.js");
 
 // add new user
@@ -32,7 +33,7 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
   //
   try {
-    const { username, password } = req.body;
+    var { username, password } = req.body;
     const user = await User.findOne({ username: username });
     if (!user) {
       const error = new Error("this user name does not exist");
@@ -49,8 +50,21 @@ const login = async (req, res, next) => {
     }
 
     //the user informations are correct
+    //create token:
+    var { password, isAdmin, ...clientDetails } = user._doc;
+    const secretKey = process.env.JWT_SECRET_KEY;
+    const token = jwt.sign({ id: user._id, isAdmin: isAdmin }, secretKey);
 
-    res.status(200).json("the user is successfully authenticated");
+    // send resposne and add token to cookies
+    res
+      .cookie("access_token", token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .json({
+        clientDetails,
+        msg: "the user is successfully authenticated",
+      });
   } catch (error) {
     next(error);
   }

@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 
 const { connectToDb } = require("./config/db");
 const { authRouter } = require("./Routes/authentication");
@@ -16,7 +17,7 @@ connectToDb();
 
 // Middlewares
 app.use(express.json());
-
+app.use(cookieParser());
 app.use("/api/auth/", authRouter);
 app.use("/api/hotels/", hotelsRouter);
 app.use("/api/users", usersRouter);
