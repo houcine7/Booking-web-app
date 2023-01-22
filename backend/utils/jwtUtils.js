@@ -26,30 +26,25 @@ const verifyToken = (req, res, next) => {
 // check if user is authorized
 const verifyUser = (req, res, next) => {
   //
-  verifyToken(req, res, () => {
-    if (req.user.id === req.params.id || req.user.isAdmin) {
-      //console.log(req.user.id + "..........." + req.params.id);
-      next();
-    } else {
-      const err = new Error("User is not authorized");
-      err.status = 403;
-      return next(err);
-    }
-  });
+  if (req.user.id === req.params.id || req.user.isAdmin) {
+    next();
+  } else {
+    const err = new Error("User is not authorized");
+    err.status = 403;
+    return next(err);
+  }
 };
 
 // check if user is an admin
 const verifyAdmin = (req, res, next) => {
   //
-  verifyToken(req, res, () => {
-    if (req.user.isAdmin) {
-      next();
-    } else {
-      const err = new Error("User is not authorized");
-      err.status = 403;
-      return next(err);
-    }
-  });
+  if (req.user.isAdmin) {
+    next();
+  } else {
+    const err = new Error("User is not authorized");
+    err.status = 403;
+    return next(err);
+  }
 };
 
 module.exports = { verifyToken, verifyUser, verifyAdmin };
