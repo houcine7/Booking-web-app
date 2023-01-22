@@ -5,6 +5,7 @@ const {
   deleteHotel,
   getHotels,
   getHotelById,
+  getHotelsCount,
 } = require("../controllers/hotel.js");
 const { verifyAdmin, verifyToken } = require("../utils/jwtUtils.js");
 
@@ -26,5 +27,7 @@ hotelsRouter.get("/", getHotels);
 // get one hotel
 hotelsRouter.get("/:id", getHotelById);
 
+// count hotels
+hotelsRouter.get("/count", getHotelsCount);
 //
 module.exports = { hotelsRouter };
