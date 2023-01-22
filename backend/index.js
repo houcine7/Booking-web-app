@@ -6,6 +6,7 @@ const { connectToDb } = require("./config/db");
 const { authRouter } = require("./Routes/authentication");
 const { hotelsRouter } = require("./Routes/hotels");
 const { usersRouter } = require("./Routes/users");
+const { roomsRouter } = require("./Routes/rooms");
 
 const app = express();
 
@@ -21,7 +22,7 @@ app.use(cookieParser());
 app.use("/api/auth/", authRouter);
 app.use("/api/hotels/", hotelsRouter);
 app.use("/api/users", usersRouter);
-
+app.use("/api/rooms", roomsRouter);
 //error handler middelware
 app.use((err, req, res, next) => {
   //
