@@ -48,6 +48,9 @@ const getHotels = async (req, res, next) => {
     const cities = req.query.cities && req.query.cities.split(",");
     const sizeTofetch = req.query.size || 5;
     const offset = req.query.offset || 0;
+    const minPrice = req.query.min || 0;
+    const maxPrice = req.query.max || Number.MAX_SAFE_INTEGER;
+    const featured = req.query.featured || false;
     var hotels;
     //
     if (cities != undefined) {
@@ -55,11 +58,22 @@ const getHotels = async (req, res, next) => {
       hotels = await Promise.all(
         cities.map((item) => {
           // find hotels by cities name
-          return Hotel.find({ city: item }).skip(offset).limit(sizeTofetch);
+          return Hotel.find({
+            city: item,
+            cheapestPrice: { $gt: minPrice, $lt: maxPrice },
+            featured: featured,
+          })
+            .skip(offset)
+            .limit(sizeTofetch);
         })
       );
     } else {
-      hotels = await Hotel.find().skip(offset).limit(sizeTofetch);
+      hotels = await Hotel.find({
+        cheapestPrice: { $gt: minPrice, $lt: maxPrice },
+        featured: featured,
+      })
+        .skip(offset)
+        .limit(sizeTofetch);
     }
     res.status(200).json(hotels);
   } catch (error) {
@@ -118,7 +132,7 @@ const getHotelsTypeCount = async (req, res, next) => {
     type0: "hotel",
     type1: "appartement",
     type2: "villa",
-    type3: "reorts",
+    type3: "reort",
   };
   try {
     // query parmeters for pagination and data quering
@@ -135,8 +149,6 @@ const getHotelsTypeCount = async (req, res, next) => {
       villasCountP,
       ReortsCountP,
     ]);
-
-    console.log(responsesDb);
     var response = [];
     // get valuse from response db
     for (let i = 0; i < responsesDb.length; i++) {

@@ -1,11 +1,34 @@
 import React from "react";
 import { FaHotel } from "react-icons/fa";
-import { BsFillCalendarDateFill } from "react-icons/bs";
 import { GrUserFemale } from "react-icons/gr";
 import { TbUsers } from "react-icons/tb";
 import { MdOutlineBedroomChild } from "react-icons/md";
+import { DateRangePicker } from "rsuite";
+import { useState } from "react";
+
+const inititalState = {
+  city: "",
+  startingDate: "",
+  endingDtae: "",
+  adultsNumber: 0,
+  childsNumber: 0,
+  roomsNumber: 0,
+};
 
 const SearchBlock = () => {
+  const [searchState, setSearchState] = useState(inititalState);
+
+  //handel onChange event for inputs
+  const handelChange = (e) => {
+    setSearchState((prevState) => {
+      return {
+        ...prevState,
+        [e.target.name]: e.target.value,
+      };
+    });
+    console.log(searchState);
+  };
+  //
   return (
     <div className="flex justify-center">
       <div className="mt-7 absolute shadow-lg">
@@ -21,21 +44,24 @@ const SearchBlock = () => {
               type="text"
               className="border-gray-200 rounded outline-none text-sm h-10 text-gray-800"
               placeholder="Where are you giong"
+              name="city"
+              onChange={(e) => {
+                handelChange(e);
+              }}
               id="place"
             />
           </div>
           <div className="flex items-center relative gap-1 px-2">
-            <label htmlFor="date">
-              <span className="cursor-pointer">
-                <BsFillCalendarDateFill />
-              </span>
-            </label>
-
-            <input
-              type="date"
-              className="border-gray-200 rounded outline-none text-sm h-10 text-gray-800 items-center"
-              placeholder="Where are you giong"
-              id="date"
+            <DateRangePicker
+              onChange={(value) => {
+                const dateStart = new Date(value[0]);
+                const dateEnd = new Date(value[1]);
+                console.log(
+                  dateStart.toISOString().split("T")[0] +
+                    "----------------" +
+                    dateEnd.toISOString().split("T")[0]
+                );
+              }}
             />
           </div>
           <div className="flex items-center relative gap-1 px-2">
@@ -51,6 +77,10 @@ const SearchBlock = () => {
                   type="number"
                   className="border-gray-200 rounded outline-none text-sm h-10 text-gray-800 w-14"
                   placeholder="adults"
+                  name="adultsNumber"
+                  onChange={(e) => {
+                    handelChange(e);
+                  }}
                   id="adults"
                 />
               </div>
@@ -65,6 +95,10 @@ const SearchBlock = () => {
                 type="number"
                 className="border-gray-200 rounded outline-none text-sm h-10 text-gray-800 w-14"
                 placeholder="kids"
+                name="childsNumber"
+                onChange={(e) => {
+                  handelChange(e);
+                }}
                 id="kids"
               />
             </div>
@@ -78,6 +112,10 @@ const SearchBlock = () => {
                 type="number"
                 className="border-gray-200 rounded outline-none text-sm h-10 text-gray-800 w-14"
                 placeholder="rooms"
+                name="roomsNumber"
+                onChange={(e) => {
+                  handelChange(e);
+                }}
                 id="rooms"
               />
             </div>

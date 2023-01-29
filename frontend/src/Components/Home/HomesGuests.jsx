@@ -1,4 +1,5 @@
 import React from "react";
+import { useFetch } from "../../hooks/useFetch";
 import CardHomes from "./CardHomes";
 
 const cardsData = [
@@ -36,24 +37,30 @@ const cardsData = [
   },
 ];
 
+const API_BASE_URL = "http://localhost:6060/api/";
+
 const HomesGuests = () => {
+  const { data, loading, error } = useFetch(
+    API_BASE_URL + "hotels?featured=true&size=4"
+  );
   return (
     <div className="px-8 my-4">
       <h1 className="font-bold text-xl mb-3">
         Homes guests love
         <span className="w-14 h-1 border-b-4 border-blue-600 block "></span>
       </h1>
-      <div className="flex gap-2">
-        {cardsData.map((item, index) => {
+      <div className="flex gap-2 justify-center">
+        {data.map((item) => {
           return (
             <CardHomes
-              key={index}
-              image={item.image}
+              key={item._id}
+              name={item.name}
+              image={item.photos[0]}
               rating={item.rating}
               nbReviews={item.nbReviews}
-              describtion={item.describtion}
+              describtion={item.description}
               city={item.city}
-              price={item.price}
+              price={item.cheapestPrice}
             />
           );
         })}

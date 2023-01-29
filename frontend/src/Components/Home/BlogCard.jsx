@@ -7,6 +7,7 @@ const BlogCard = () => {
         src="./images/villas.png"
         alt="bolg object"
         className="rounded-sm h-full object-cover w-full transition duration-200 ease-in-out hover:scale-110"
+        loading="lazy"
       />
       <div className="text-white absolute bottom-10 px-5">
         <h1 className="text-2xl font-bold">The titile of this Blog </h1>
