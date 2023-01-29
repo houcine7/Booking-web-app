@@ -1,6 +1,7 @@
 import React from "react";
 
-export const SearchComponenet = () => {
+export const SearchComponenet = ({ searchState }) => {
+  console.log(searchState);
   return (
     <div className="col-span-1 rounded-lg bg-blue-900 text-white px-2 py-4 h-fit sticky top-8">
       <h1 className="text-lg font-bold">Search</h1>
@@ -13,24 +14,37 @@ export const SearchComponenet = () => {
           name="destination"
           id="destinaion"
           placeholder="where are you going"
+          value={searchState?.city}
           className="w-full h-10 px-2 rounded-sm text-sm text-gray-800 outline-none"
         />
       </div>
       <div className="mt-2">
-        <label htmlFor="checkInDate" className="block mb-1">
-          check-in date
+        <label htmlFor="startingDate" className="block mb-1">
+          Starting date
         </label>
         <input
           type="date"
-          name="checkInDate"
-          id="destinaion"
-          placeholder="where are you going"
+          name="startingDate"
+          id="starting date"
+          value={searchState?.startingDate}
+          className="w-full h-10 px-2 rounded-sm text-sm text-gray-800 outline-none"
+        />
+      </div>
+      <div className="mt-2">
+        <label htmlFor="endDate" className="block mb-1">
+          End date
+        </label>
+        <input
+          type="date"
+          name="endDate"
+          id="starting date"
+          value={searchState?.startingDate}
           className="w-full h-10 px-2 rounded-sm text-sm text-gray-800 outline-none"
         />
       </div>
 
       <div className="options mt-2">
-        <h1>Options</h1>
+        <h3>Options</h3>
         <div className="px-2">
           <div className="flex justify-between items-center mt-2">
             <label htmlFor="">
@@ -55,6 +69,7 @@ export const SearchComponenet = () => {
             <input
               type="number"
               className="w-16 rounded outline-none text-gray-800 px-1"
+              value={searchState?.adultsNumber}
             />
           </div>
           <div className="flex justify-between items-center mt-3">
@@ -62,6 +77,7 @@ export const SearchComponenet = () => {
             <input
               type="number"
               className="w-16 rounded outline-none text-gray-800 px-1"
+              value={searchState?.childsNumber}
             />
           </div>
           <div className="flex justify-between items-center mt-3">
@@ -69,6 +85,7 @@ export const SearchComponenet = () => {
             <input
               type="number"
               className="w-16 rounded outline-none text-gray-800 px-1"
+              value={searchState?.roomsNumber}
             />
           </div>
         </div>

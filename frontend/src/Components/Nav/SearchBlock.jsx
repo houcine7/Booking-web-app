@@ -5,11 +5,12 @@ import { TbUsers } from "react-icons/tb";
 import { MdOutlineBedroomChild } from "react-icons/md";
 import { DateRangePicker } from "rsuite";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const inititalState = {
   city: "",
   startingDate: "",
-  endingDtae: "",
+  endingDate: "",
   adultsNumber: 0,
   childsNumber: 0,
   roomsNumber: 0,
@@ -17,7 +18,7 @@ const inititalState = {
 
 const SearchBlock = () => {
   const [searchState, setSearchState] = useState(inititalState);
-
+  const navigateTo = useNavigate();
   //handel onChange event for inputs
   const handelChange = (e) => {
     setSearchState((prevState) => {
@@ -28,7 +29,12 @@ const SearchBlock = () => {
     });
     console.log(searchState);
   };
-  //
+
+  // handel click event for search button
+
+  const handelClick = () => {
+    navigateTo("/hotels", { state: { searchState } });
+  };
   return (
     <div className="flex justify-center">
       <div className="mt-7 absolute shadow-lg">
@@ -56,11 +62,14 @@ const SearchBlock = () => {
               onChange={(value) => {
                 const dateStart = new Date(value[0]);
                 const dateEnd = new Date(value[1]);
-                console.log(
-                  dateStart.toISOString().split("T")[0] +
-                    "----------------" +
-                    dateEnd.toISOString().split("T")[0]
-                );
+                setSearchState((prevState) => {
+                  return {
+                    ...prevState,
+                    startingDate: dateStart.toISOString().split("T")[0],
+                    endingDate: dateEnd.toISOString().split("T")[0],
+                  };
+                });
+                console.log(searchState);
               }}
             />
           </div>
@@ -121,7 +130,10 @@ const SearchBlock = () => {
             </div>
           </div>
           <div className="flex items-center relative gap-1 px-2">
-            <button className=" text-white rounded-md font-semibold text-sm bg-blue-500 px-5 py-2 transition duration-200 shadow-md hover:bg-blue-300 ease-in-out">
+            <button
+              className=" text-white rounded-md font-semibold text-sm bg-blue-500 px-5 py-2 transition duration-200 shadow-md hover:bg-blue-300 ease-in-out"
+              onClick={handelClick}
+            >
               Search
             </button>
           </div>
