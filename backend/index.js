@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const { connectToDb } = require("./config/db");
 const { authRouter } = require("./Routes/authentication");
@@ -13,6 +14,13 @@ const app = express();
 // environment variables configuration
 dotenv.config();
 
+// allow origins
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 // connction to database
 connectToDb();
 
