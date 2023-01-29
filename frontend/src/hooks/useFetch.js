@@ -17,6 +17,7 @@ export const useFetch = (url) => {
         console.log(error);
         setError(error);
       }
+      setLoading(false);
     };
     fetchData();
   }, [url]);

@@ -6,6 +6,7 @@ const {
   getHotels,
   getHotelById,
   getHotelsCount,
+  getHotelsTypeCount,
 } = require("../controllers/hotel.js");
 const { verifyAdmin, verifyToken } = require("../utils/jwtUtils.js");
 
@@ -30,4 +31,5 @@ hotelsRouter.get("/:id", getHotelById);
 // count hotels
 hotelsRouter.get("/count", getHotelsCount);
 //
+hotelsRouter.get("/types-count", getHotelsTypeCount);
 module.exports = { hotelsRouter };

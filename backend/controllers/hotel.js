@@ -73,7 +73,7 @@ const getHotelById = async (req, res, next) => {
   //
   try {
     const idHotel = await req.params.id;
-    if (idHotel === "count") {
+    if (idHotel === "count" || idHotel === "types-count") {
       next();
     } else {
       const hotel = await Hotel.findById(req.params.id);
@@ -86,6 +86,7 @@ const getHotelById = async (req, res, next) => {
   }
 };
 
+// count hotels by citites :
 const getHotelsCount = async (req, res, next) => {
   try {
     // query parmeters for pagination and data quering
@@ -111,6 +112,51 @@ const getHotelsCount = async (req, res, next) => {
   }
 };
 
+// count hotels by types :
+const getHotelsTypeCount = async (req, res, next) => {
+  const typesMap = {
+    type0: "hotel",
+    type1: "appartement",
+    type2: "villa",
+    type3: "reorts",
+  };
+  try {
+    // query parmeters for pagination and data quering
+    const hotelCountP = Hotel.countDocuments({ type: typesMap.type0 });
+    const appartementCountP = Hotel.countDocuments({
+      type: typesMap.type1,
+    });
+    const villasCountP = Hotel.countDocuments({ type: typesMap.type2 });
+    const ReortsCountP = Hotel.countDocuments({ type: typesMap.type3 });
+
+    const responsesDb = await Promise.all([
+      hotelCountP,
+      appartementCountP,
+      villasCountP,
+      ReortsCountP,
+    ]);
+
+    console.log(responsesDb);
+    var response = [];
+    // get valuse from response db
+    for (let i = 0; i < responsesDb.length; i++) {
+      const key = "type" + i;
+      const type = typesMap[key];
+      // create
+      response.push({
+        typeProp: type,
+        count: responsesDb[i],
+      });
+    }
+
+    res.status(200).json(response);
+  } catch (error) {
+    //
+    error.status = 500;
+    next(error);
+  }
+};
+
 module.exports = {
   createHotel,
   deleteHotel,
@@ -118,4 +164,5 @@ module.exports = {
   getHotelById,
   updateHotel,
   getHotelsCount,
+  getHotelsTypeCount,
 };
