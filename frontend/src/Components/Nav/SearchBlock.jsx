@@ -19,6 +19,7 @@ const inititalState = {
 const SearchBlock = () => {
   const [searchState, setSearchState] = useState(inititalState);
   const navigateTo = useNavigate();
+
   //handel onChange event for inputs
   const handelChange = (e) => {
     setSearchState((prevState) => {
@@ -27,14 +28,27 @@ const SearchBlock = () => {
         [e.target.name]: e.target.value,
       };
     });
-    console.log(searchState);
+  };
+
+  // handel change on date range picker
+  const datePickerChange = (value) => {
+    const dateStart = new Date(value[0]);
+    const dateEnd = new Date(value[1]);
+    setSearchState((prevState) => {
+      return {
+        ...prevState,
+        startingDate: dateStart.toISOString().split("T")[0],
+        endingDate: dateEnd.toISOString().split("T")[0],
+      };
+    });
   };
 
   // handel click event for search button
-
   const handelClick = () => {
     navigateTo("/hotels", { state: { searchState } });
   };
+
+  //
   return (
     <div className="flex justify-center">
       <div className="mt-7 absolute shadow-lg">
@@ -60,16 +74,7 @@ const SearchBlock = () => {
           <div className="flex items-center relative gap-1 px-2">
             <DateRangePicker
               onChange={(value) => {
-                const dateStart = new Date(value[0]);
-                const dateEnd = new Date(value[1]);
-                setSearchState((prevState) => {
-                  return {
-                    ...prevState,
-                    startingDate: dateStart.toISOString().split("T")[0],
-                    endingDate: dateEnd.toISOString().split("T")[0],
-                  };
-                });
-                console.log(searchState);
+                datePickerChange(value);
               }}
             />
           </div>
