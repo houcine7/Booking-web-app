@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const SearchComponenet = ({ searchState }) => {
   //
@@ -10,13 +11,26 @@ export const SearchComponenet = ({ searchState }) => {
     childsNumber: searchState.childsNumber,
     roomsNumber: searchState.roomsNumber,
     minPrice: 0,
+    maxPrice: 0,
   };
 
   const [formData, setFormData] = useState(inititalState);
+  const navigateTo = useNavigate();
   //
   const handelChange = (e) => {
     //
+    setFormData((prevData) => {
+      return {
+        ...prevData,
+        [e.target.name]: e.target.value,
+      };
+    });
   };
+
+  const handelClick = () => {
+    navigateTo("/hotels", { state: { searchState: formData } });
+  };
+
   return (
     <div className="col-span-1 rounded-lg bg-blue-900 text-white px-2 py-4 h-fit sticky top-8">
       <h1 className="text-lg font-bold">Search</h1>
@@ -83,6 +97,8 @@ export const SearchComponenet = ({ searchState }) => {
             <input
               type="number"
               name="maxPrice"
+              value={formData.maxPrice}
+              onChange={(e) => handelChange(e)}
               className="w-16 rounded outline-none text-gray-800 px-1"
             />
           </div>
@@ -119,7 +135,10 @@ export const SearchComponenet = ({ searchState }) => {
         </div>
       </div>
       <div className="mt-4">
-        <button className="w-full bg-green-500 h-9 text-lg font-bold rounded-sm shadow-lg transition duration-300 ease-in-out hover:bg-green-700">
+        <button
+          className="w-full bg-green-500 h-9 text-lg font-bold rounded-sm shadow-lg transition duration-300 ease-in-out hover:bg-green-700"
+          onClick={handelClick}
+        >
           Search
         </button>
       </div>

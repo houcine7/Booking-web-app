@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const HotelCard = ({ img, title, rating, distance, desc, price }) => {
+const HotelCard = ({ img, title, rating, distance, desc, price, index }) => {
+  const navigateTo = useNavigate();
   return (
     <div className="mycard p-2 rounded-lg w-full border-gray-400 border flex gap-6">
       <div className="w-56 overflow-hidden">
@@ -40,7 +42,13 @@ const HotelCard = ({ img, title, rating, distance, desc, price }) => {
           <p className="text-gray-500 text-xs">
             You can cencel later, so book now with this great price
           </p>
-          <button className="bg-blue-600 rounded px-2 py-2 font-bold text-white shadow transition duration-200 ease-in-out hover:bg-blue-700">
+          <button
+            className="bg-blue-600 rounded px-2 py-2 font-bold text-white shadow transition duration-200 ease-in-out hover:bg-blue-700"
+            onClick={() => {
+              //navigate to item details page
+              navigateTo("/hotels/" + index);
+            }}
+          >
             see availability
           </button>
         </div>

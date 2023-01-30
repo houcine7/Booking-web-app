@@ -6,6 +6,7 @@ import {
 } from "react-icons/fa";
 
 import { BsXCircleFill } from "react-icons/bs";
+import { useLocation } from "react-router-dom";
 
 const pics = [
   {
@@ -31,7 +32,11 @@ const initialState = {
 };
 const Hotel = () => {
   const [silderImage, setSliderImage] = useState(initialState);
+  const location = useLocation();
 
+  //fetch items date from api
+
+  // slider handlers functions
   const handelClick = (index) => {
     setSliderImage({
       imgeIndex: index,
@@ -68,6 +73,7 @@ const Hotel = () => {
     });
   };
 
+  //
   return (
     <div className="mt-5 max-w-5xl mx-auto relative">
       <div className="flex justify-between">
