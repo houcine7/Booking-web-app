@@ -4,8 +4,9 @@ import { GrUserFemale } from "react-icons/gr";
 import { TbUsers } from "react-icons/tb";
 import { MdOutlineBedroomChild } from "react-icons/md";
 import { DateRangePicker } from "rsuite";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { SearchContext } from "../context/searchContext.js";
 
 const inititalState = {
   city: "",
@@ -19,7 +20,7 @@ const inititalState = {
 const SearchBlock = () => {
   const [searchState, setSearchState] = useState(inititalState);
   const navigateTo = useNavigate();
-
+  // const { dispatch } = useContext(SearchContext);
   //handel onChange event for inputs
   const handelChange = (e) => {
     setSearchState((prevState) => {
@@ -45,6 +46,19 @@ const SearchBlock = () => {
 
   // handel click event for search button
   const handelClick = () => {
+    // dispatch({
+    //   type: "NEW_SEARCH",
+    //   state: {
+    //     city: searchState.city,
+    //     startingDate: searchState.startingDate,
+    //     endingDate: searchState.endingDate,
+    //     options: {
+    //       adultsNumber: searchState.adultsNumber,
+    //       childsNumber: searchState.childsNumber,
+    //       roomsNumber: searchState.roomsNumber,
+    //     },
+    //   },
+    // });
     navigateTo("/hotels", { state: { searchState } });
   };
 

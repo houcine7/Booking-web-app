@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 export const SearchComponenet = ({ searchState }) => {
   //
   const inititalState = {
-    city: searchState.city,
-    startingDate: searchState.startingDate,
-    endingDate: searchState.endingDate,
-    adultsNumber: searchState.adultsNumber,
-    childsNumber: searchState.childsNumber,
-    roomsNumber: searchState.roomsNumber,
+    city: searchState?.city,
+    startingDate: searchState?.startingDate,
+    endingDate: searchState?.endingDate,
+    adultsNumber: searchState?.adultsNumber,
+    childsNumber: searchState?.childsNumber,
+    roomsNumber: searchState?.roomsNumber,
     minPrice: 0,
     maxPrice: 0,
   };
@@ -43,7 +43,7 @@ export const SearchComponenet = ({ searchState }) => {
           name="city"
           id="destinaion"
           placeholder="where are you going"
-          value={formData.city}
+          value={formData?.city}
           onChange={(e) => handelChange(e)}
           className="w-full h-10 px-2 rounded-sm text-sm text-gray-800 outline-none"
         />
@@ -69,7 +69,7 @@ export const SearchComponenet = ({ searchState }) => {
           type="date"
           name="endingDate"
           id="starting date"
-          value={formData.endingDate}
+          value={formData?.endingDate}
           onChange={(e) => handelChange(e)}
           className="w-full h-10 px-2 rounded-sm text-sm text-gray-800 outline-none"
         />
@@ -86,7 +86,7 @@ export const SearchComponenet = ({ searchState }) => {
               type="number"
               name="minPrice"
               className="w-16 rounded outline-none text-gray-800 px-1"
-              value={formData.minPrice}
+              value={formData?.minPrice}
               onChange={(e) => handelChange(e)}
             />
           </div>
@@ -97,7 +97,7 @@ export const SearchComponenet = ({ searchState }) => {
             <input
               type="number"
               name="maxPrice"
-              value={formData.maxPrice}
+              value={formData?.maxPrice}
               onChange={(e) => handelChange(e)}
               className="w-16 rounded outline-none text-gray-800 px-1"
             />
@@ -108,7 +108,7 @@ export const SearchComponenet = ({ searchState }) => {
               type="number"
               name="adultsNumber"
               className="w-16 rounded outline-none text-gray-800 px-1"
-              value={formData.adultsNumber}
+              value={formData?.adultsNumber}
               onChange={(e) => handelChange(e)}
             />
           </div>
@@ -118,7 +118,7 @@ export const SearchComponenet = ({ searchState }) => {
               type="number"
               name="childsNumber"
               className="w-16 rounded outline-none text-gray-800 px-1"
-              value={formData.childsNumber}
+              value={formData?.childsNumber}
               onChange={(e) => handelChange(e)}
             />
           </div>
@@ -128,7 +128,7 @@ export const SearchComponenet = ({ searchState }) => {
               type="number"
               name="roomsNumber"
               className="w-16 rounded outline-none text-gray-800 px-1"
-              value={formData.roomsNumber}
+              value={formData?.roomsNumber}
               onChange={(e) => handelChange(e)}
             />
           </div>

@@ -1,8 +1,8 @@
 import React from "react";
 import { useFetch } from "../../hooks/useFetch";
 import Featured from "./Featured";
+import { API_BASE_URL } from "../../constants/api";
 
-const API_BASE_URL = "http://localhost:6060/api/";
 const FeaturedList = () => {
   const { data, loading, error } = useFetch(
     API_BASE_URL + "hotels/count?cities=Paris,Madrid,NewYork"

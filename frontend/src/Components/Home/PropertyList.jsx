@@ -1,7 +1,7 @@
 import React from "react";
 import { useFetch } from "../../hooks/useFetch";
 import TypeCard from "./TypeCard";
-
+import { API_BASE_URL } from "../../constants/api";
 const cardsImages = [
   {
     image: "./images/hotels.png",
@@ -18,7 +18,7 @@ const cardsImages = [
   },
 ];
 
-const API_BASE_URL = "http://localhost:6060/api/";
+
 const PropertyList = () => {
   //
   const { data, loading, error } = useFetch(

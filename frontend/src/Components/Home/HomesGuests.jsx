@@ -1,6 +1,7 @@
 import React from "react";
 import { useFetch } from "../../hooks/useFetch";
 import CardHomes from "./CardHomes";
+import { API_BASE_URL } from "../../constants/api";
 
 const cardsData = [
   {
@@ -36,8 +37,6 @@ const cardsData = [
     rating: "7.5",
   },
 ];
-
-const API_BASE_URL = "http://localhost:6060/api/";
 
 const HomesGuests = () => {
   const { data, loading, error } = useFetch(

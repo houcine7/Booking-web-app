@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
 import HotelCard from "./HotelCard";
 import { SearchComponenet } from "./SearchComponenet";
@@ -9,12 +9,13 @@ const ListHotel = () => {
   //
   const location = useLocation();
   // fetch hotels by city with useFetch
-  const queryParams = location.state.searchState;
+  const queryParams = location.state?.searchState;
+
   const { data, loading, error } = useFetch(
     API_BASE_URL +
-      `hotels?cities=${queryParams.city}&min=${queryParams.minPrice || 0}&max=${
-        queryParams.maxPrice || Number.MAX_SAFE_INTEGER
-      }&featured=true`
+      `hotels?cities=${queryParams?.city}&min=${
+        queryParams?.minPrice || 0
+      }&max=${queryParams?.maxPrice || Number.MAX_SAFE_INTEGER}&featured=true`
   );
   //
   return (
